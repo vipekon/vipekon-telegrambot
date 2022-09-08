@@ -28,8 +28,8 @@ public class SendBotMessageServiceTest {
         String message = "test_message";
 
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText();
-        sendMessage.setChatId();
+        sendMessage.setText(message);
+        sendMessage.setChatId(chatId);
         sendMessage.enableHtml(true);
 
         //when

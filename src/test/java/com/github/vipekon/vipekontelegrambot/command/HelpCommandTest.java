@@ -5,7 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import static com.github.vipekon.vipekontelegrambot.command.CommandName.HELP;
 import static com.github.vipekon.vipekontelegrambot.command.HelpCommand.HELP_MESSAGE;
 
-@DisplayName("Unit-level testing for Help-command")
+import org.junit.jupiter.api.DisplayName;
+
+import static com.github.vipekon.vipekontelegrambot.command.CommandName.HELP;
+import static com.github.vipekon.vipekontelegrambot.command.HelpCommand.HELP_MESSAGE;
+
+@DisplayName("Unit-level testing for HelpCommand")
 public class HelpCommandTest extends AbstractCommandTest {
 
     @Override
@@ -14,7 +19,7 @@ public class HelpCommandTest extends AbstractCommandTest {
     }
 
     @Override
-    String getCommandName() {
+    String getCommandMessage() {
         return HELP_MESSAGE;
     }
 
