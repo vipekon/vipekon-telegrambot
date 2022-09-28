@@ -5,6 +5,8 @@ import com.github.vipekon.vipekontelegrambot.command.CommandContainer;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageServiceImpl;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageServiceImpl;
+import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -28,6 +30,12 @@ public class VipekonTelegramBot extends TelegramLongPollingBot {
     private String token;
 
     private final CommandContainer commandContainer;
+
+    @Autowired
+    public VipekonTelegramBot(TelegramUserService telegramUserService){
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService))
+    }
+
 
     public VipekonTelegramBot () {
         this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
