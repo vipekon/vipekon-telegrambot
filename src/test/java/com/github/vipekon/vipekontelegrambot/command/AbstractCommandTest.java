@@ -3,6 +3,7 @@ package com.github.vipekon.vipekontelegrambot.command;
 import com.github.vipekon.vipekontelegrambot.bot.VipekonTelegramBot;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageServiceImpl;
+import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
@@ -15,6 +16,7 @@ abstract class AbstractCommandTest {
 
     protected VipekonTelegramBot vipekonBot = Mockito.mock(VipekonTelegramBot.class);
     protected SendBotMessageService sendBotMessageService = new SendBotMessageServiceImpl(vipekonBot);
+    protected TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
 
     abstract String getCommandName();
 
