@@ -1,1 +1,0 @@
-# vipekon-telegrambot
