@@ -1,20 +1,16 @@
 package com.github.vipekon.vipekontelegrambot.bot;
 
 
-import com.github.vipekon.vipekontelegrambot.command.CommandContainer;
-import com.github.vipekon.vipekontelegrambot.service.SendBotMessageServiceImpl;
-import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
+import com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandContainer;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageServiceImpl;
 import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import static com.github.vipekon.vipekontelegrambot.command.CommandName.*;
+import static com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandName.*;
 /**
  * Telegram bot for Javarush Community from Javarush community.
  */
