@@ -1,7 +1,10 @@
 package com.github.vipekon.vipekontelegrambot.command;
 
-import static com.github.vipekon.vipekontelegrambot.command.CommandName.STAT;
-import static com.github.vipekon.vipekontelegrambot.command.StatCommand.STAT_MESSAGE;
+import com.github.vipekon.vipekontelegrambot.javarushclient.command.Command;
+import com.github.vipekon.vipekontelegrambot.javarushclient.command.StatCommand;
+
+import static com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandName.STAT;
+import static com.github.vipekon.vipekontelegrambot.javarushclient.command.StatCommand.STAT_MESSAGE;
 
 public class StatCommandTest extends AbstractCommandTest {
     @Override
