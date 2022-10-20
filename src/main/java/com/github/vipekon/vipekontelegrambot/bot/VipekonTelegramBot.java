@@ -1,7 +1,9 @@
 package com.github.vipekon.vipekontelegrambot.bot;
 
 
+import com.github.vipekon.vipekontelegrambot.javarushclient.JavaRushGroupClient;
 import com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandContainer;
+import com.github.vipekon.vipekontelegrambot.service.GroupSubService;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageServiceImpl;
 import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,8 @@ public class VipekonTelegramBot extends TelegramLongPollingBot {
     private final CommandContainer commandContainer;
 
     @Autowired
-    public VipekonTelegramBot(TelegramUserService telegramUserService){
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService))
+    public VipekonTelegramBot(TelegramUserService telegramUserService, JavaRushGroupClient groupClient, GroupSubService groupSubService, @Value("#{'${bot.admins}'.split(',')}") List<String> admins) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService, groupClient, groupSubService, admins);
     }
 
 

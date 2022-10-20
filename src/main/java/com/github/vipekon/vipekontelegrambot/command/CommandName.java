@@ -9,6 +9,7 @@ public enum CommandName {
     ADD_GROUP_SUB ("/addgroupsub"),
     LIST_GROUP_SUB("/listGroupSub"),
     DELETE_GROUP_SUB("/deleteGroupSub"),
+    ADMIN_HELP("/ahelp"),
     NO ("nocommand");
 
 
