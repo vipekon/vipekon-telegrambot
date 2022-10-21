@@ -7,8 +7,6 @@ import com.github.vipekon.vipekontelegrambot.service.StatisticsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.Collections;
@@ -44,7 +42,7 @@ public class StatCommandTest {
         statCommand.execute(prepareUpdate(chatId, CommandName.STAT.getCommandName()));
 
         //then
-        Mockito.verify(sendBotMessageService).sendMessage(chatId.toString(), format(STAT_MESSAGE,
+        Mockito.verify(sendBotMessageService).sendMessage(chatId, format(STAT_MESSAGE,
                 statisticDTO.getActiveUserCount(),
                 statisticDTO.getInactiveUserCount(),
                 statisticDTO.getAverageGroupCountByUser(),

@@ -4,6 +4,7 @@ import com.github.vipekon.vipekontelegrambot.repository.entity.GroupSub;
 import com.github.vipekon.vipekontelegrambot.repository.entity.TelegramUser;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
+import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import javax.ws.rs.NotFoundException;
@@ -31,11 +32,15 @@ public class ListGroupSubCommand implements Command {
         TelegramUser telegramUser = telegramUserService.findByChatId(getChatId(update))
                 .orElseThrow(NotFoundException::new);
 
-        String message = "Я нашел все подписки на группы: \n\n";
-        String collectedGroups = telegramUser.getGroupSubs().stream()
-                .map(it -> "Группа:" + it.getTitle() + " , ID = " + it.getId() + "\n")
-                .collect(Collectors.joining());
-
-        sendBotMessageService.sendMessage(telegramUser.getChatId(), message + collectedGroups);
+        String message;
+        if (CollectionUtils.isEmpty(telegramUser.getGroupSubs())) {
+            message = "Пока нет подписок на группы. Чтобы добавить подписку напиши /addGroupSub";
+        } else {
+            String collectedGroups = telegramUser.getGroupSubs().stream()
+                    .map(it -> "Группа:" + it.getTitle() + " , ID = " + it.getId() + "\n")
+                    .collect(Collectors.joining());
+            message = String.format("Я нашел все подписки на группы: \n\n %s", collectedGroups);
+        }
+        sendBotMessageService.sendMessage(telegramUser.getChatId(), message);
     }
 }

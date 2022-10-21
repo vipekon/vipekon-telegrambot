@@ -1,6 +1,5 @@
 package com.github.vipekon.vipekontelegrambot.command;
 
-import com.github.vipekon.vipekontelegrambot.command.ListGroupSubCommand;
 import com.github.vipekon.vipekontelegrambot.repository.entity.GroupSub;
 import com.github.vipekon.vipekontelegrambot.repository.entity.TelegramUser;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
@@ -8,7 +7,6 @@ import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.github.vipekon.vipekontelegrambot.command.AbstractCommandTest.prepareUpdate;
 import static com.github.vipekon.vipekontelegrambot.command.CommandName.LIST_GROUP_SUB;
 
 @DisplayName("Unit-level testing for ListGroupSubCommand")
@@ -26,7 +25,7 @@ public class ListGroupSubCommandTest {
         //given
         TelegramUser telegramUser = new TelegramUser();
         telegramUser.setActive(true);
-        telegramUser.setChatId("1");
+        telegramUser.setChatId(1L);
 
         List<GroupSub> groupSubList = new ArrayList<>();
         groupSubList.add(populateGroupSub(1, "gs1"));
@@ -43,16 +42,13 @@ public class ListGroupSubCommandTest {
 
         ListGroupSubCommand command = new ListGroupSubCommand(sendBotMessageService, telegramUserService);
 
-        Update update = new Update();
-        Message message = Mockito.mock(Message.class);
-        Mockito.when(message.getChatId()).thenReturn(Long.valueOf(telegramUser.getChatId()));
-        Mockito.when(message.getText()).thenReturn(LIST_GROUP_SUB.getCommandName());
-        update.setMessage();
+        Update update = prepareUpdate(Long.valueOf(telegramUser.getChatId()), LIST_GROUP_SUB.getCommandName());
 
-        String collectedGroups = "Я нашел все подписки на группы: \n\n" +
-                telegramUser.getGroupSubs().stream()
-                        .map(it -> "Группа:" + it.getTitle() + ", ID = " +it.getId() + "\n" )
-                        .collect(Collectors.joining());
+        String joinedGroups = telegramUser.getGroupSubs().stream()
+                .map(it -> "Группа:" + it.getTitle() + " , ID = " + it.getId() + " \n")
+                .collect(Collectors.joining());
+
+        String collectedGroups = String.format("Я нашел все подписки на группы: \n\n %s" + joinedGroups);
 
         //when
         command.execute(update);

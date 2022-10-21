@@ -1,9 +1,8 @@
 package com.github.vipekon.vipekontelegrambot.command;
 
-import com.github.vipekon.vipekontelegrambot.javarushclient.command.Command;
-import com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandContainer;
-import com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandName;
-import com.github.vipekon.vipekontelegrambot.javarushclient.command.UnknownCommand;
+import com.github.vipekon.vipekontelegrambot.javarushclient.JavaRushGroupClient;
+import com.github.vipekon.vipekontelegrambot.service.GroupSubService;
+import com.github.vipekon.vipekontelegrambot.service.StatisticsService;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +13,8 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 
+import static java.util.Collections.singletonList;
+
 @DisplayName("Unit-level testing for CommandContainer")
 class CommandContainerTest {
     private CommandContainer commandContainer;
@@ -22,7 +23,16 @@ class CommandContainerTest {
     public void init() {
         SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
         TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
-        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService);
+        JavaRushGroupClient groupClient = Mockito.mock(JavaRushGroupClient.class);
+        GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
+        StatisticsService statisticsService = Mockito.mock(StatisticsService.class);
+        commandContainer = new CommandContainer(
+                sendBotMessageService,
+                telegramUserService,
+                groupClient,
+                groupSubService,
+                singletonList("username"),
+                statisticsService);
     }
 
     @Test
@@ -30,18 +40,18 @@ class CommandContainerTest {
         //when-then
         Arrays.stream(CommandName.values())
                 .forEach(commandName -> {
-                    Command command = commandContainer.retrieveCommand(commandName.getCommandName());
+                    Command command = commandContainer.findCommand(commandName.getCommandName(), "username");
                     Assertions.assertNotEquals(UnknownCommand.class, command.getClass());
                 });
     }
 
     @Test
-    public void ShouldReturnUnknownCommand() {
+    public void shouldReturnUnknownCommand() {
         //given
         String unknownCommand = "/fgjhdfgdfg";
 
         //when
-        Command command = commandContainer.retrieveCommand(unknownCommand);
+        Command command = commandContainer.findCommand(unknownCommand, "username");
 
         //then
         Assertions.assertEquals(UnknownCommand.class, command.getClass());

@@ -5,5 +5,5 @@ package com.github.vipekon.vipekontelegrambot.javarushclient.dto;
  */
 
 public enum GroupInfoType {
-    UNKNOWN, CITY, COMPANY, COLLEGE, TECH, SPEECIAL, COUNTRY
+    UNKNOWN, CITY, COMPANY, COLLEGE, TECH, SPECIAL, COUNTRY
 }

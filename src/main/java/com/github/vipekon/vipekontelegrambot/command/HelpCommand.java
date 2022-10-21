@@ -2,7 +2,9 @@ package com.github.vipekon.vipekontelegrambot.command;
 
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
 import static com.github.vipekon.vipekontelegrambot.command.CommandName.*;
+import static com.github.vipekon.vipekontelegrambot.command.CommandUtils.getChatId;
 
 public class HelpCommand implements Command {
 
@@ -21,7 +23,7 @@ public class HelpCommand implements Command {
                     + "%s - получить помощь в работе со мной\n"
                     + "%s - получить мою статистику использования\n",
             START.getCommandName(), STOP.getCommandName(), ADD_GROUP_SUB.getCommandName(),
-            LIST_GROUP_SUB.getCommandName(), HELP.getCommandName(), STAT.getCommandName());
+            LIST_GROUP_SUB.getCommandName(), HELP.getCommandName(), DELETE_GROUP_SUB.getCommandName());
 
     public HelpCommand (SendBotMessageService sendBotMessageService) {
         this.sendBotMessageService = sendBotMessageService;
@@ -29,7 +31,7 @@ public class HelpCommand implements Command {
 
     @Override
     public void execute (Update update) {
-        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), HELP_MESSAGE);
+        sendBotMessageService.sendMessage(getChatId(update), HELP_MESSAGE);
     }
 
 }
