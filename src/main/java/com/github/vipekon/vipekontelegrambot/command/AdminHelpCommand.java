@@ -4,6 +4,7 @@ import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static com.github.vipekon.vipekontelegrambot.command.CommandName.STAT;
+import static com.github.vipekon.vipekontelegrambot.command.CommandUtils.getChatId;
 import static java.lang.String.format;
 
 /**
@@ -25,6 +26,6 @@ public class AdminHelpCommand implements Command {
 
     @Override
     public void execute (Update update) {
-        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), ADMIN_HELP_MESSAGE);
+        sendBotMessageService.sendMessage(getChatId(update), ADMIN_HELP_MESSAGE);
     }
 }

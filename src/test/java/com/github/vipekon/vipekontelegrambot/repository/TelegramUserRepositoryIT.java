@@ -1,5 +1,7 @@
 package com.github.vipekon.vipekontelegrambot.repository;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.github.vipekon.vipekontelegrambot.repository.entity.GroupSub;
 import com.github.vipekon.vipekontelegrambot.repository.entity.TelegramUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,7 +44,7 @@ public class TelegramUserRepositoryIT {
     public void shouldProperlySaveTelegramUser() {
         //given
         TelegramUser telegramUser = new TelegramUser();
-        telegramUser.setChatId("1234567890");
+        telegramUser.setChatId(1234567890L);
         telegramUser.setActive(false);
         telegramUserRepository.save(telegramUser);
 
@@ -52,5 +54,21 @@ public class TelegramUserRepositoryIT {
         //then
         Assertions.assertTrue(saved.isPresent());
         Assertions.assertEquals(telegramUser, saved.get());
+    }
+
+    @Sql(scripts = {"/sql/clearDbs.sql", "/sql/fiveGroupSubsForUser.sql"})
+    @Test
+    public void shouldProperlyGetAllGroupSubsForUser() {
+        //when
+        Optional<TelegramUser> useFromDB = telegramUserRepository.findById(1L);
+
+        //then
+        Assertions.assertTrue(useFromDB.isPresent());
+        List<GroupSub> groupSubs = useFromDB.get().getGroupSubs();
+        for (int i = 0; i < groupSubs.size(); i++) {
+            Assertions.assertEquals(String.format("g%s", (i + 1)), groupSubs.get(i).getTitle());
+            Assertions.assertEquals(i + 1, groupSubs.get(i).getId());
+            Assertions.assertEquals(i + 1, groupSubs.get(i).getLastPostId());
+        }
     }
 }

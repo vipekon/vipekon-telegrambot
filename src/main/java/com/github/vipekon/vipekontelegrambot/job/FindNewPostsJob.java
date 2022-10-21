@@ -1,6 +1,6 @@
 package com.github.vipekon.vipekontelegrambot.job;
 
-import com.github.vipekon.vipekontelegrambot.service.FindNewArticleService;
+import com.github.vipekon.vipekontelegrambot.service.FindNewPostsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,25 +15,25 @@ import java.time.ZoneOffset;
 
 @Slf4j
 @Component
-public class FindNewArticlesJob {
-    private final FindNewArticleService findNewArticleService;
+public class FindNewPostsJob {
+    private final FindNewPostsService findNewPostsService;
 
     @Autowired
-    public FindNewArticlesJob (FindNewArticleService findNewArticleService) {
-        this.findNewArticleService = findNewArticleService;
+    public FindNewPostsJob(FindNewPostsService findNewPostsService) {
+        this.findNewPostsService = findNewPostsService;
     }
 
     @Scheduled(fixedRateString = "${bot.recountNewArticleFixedRate}")
-    public void findNewArticles() {
+    public void findNewPosts() {
         LocalDateTime start = LocalDateTime.now();
 
-        log.info("Find new article job started.");
+        log.info("Find new posts job started.");
 
-        findNewArticleService.findNewArticles();
+        findNewPostsService.findNewPosts();
 
         LocalDateTime end = LocalDateTime.now();
 
-        log.info("Find new articles job finished. Took seconds: {}",
+        log.info("Find new posts job finished. Took seconds: {}",
                 end.toEpochSecond(ZoneOffset.UTC) - start.toEpochSecond(ZoneOffset.UTC));
     }
 }

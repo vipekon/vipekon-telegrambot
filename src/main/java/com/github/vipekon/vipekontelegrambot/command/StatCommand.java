@@ -4,11 +4,12 @@ import com.github.vipekon.vipekontelegrambot.command.annotation.AdminCommand;
 import com.github.vipekon.vipekontelegrambot.javarushclient.dto.StatisticDTO;
 import com.github.vipekon.vipekontelegrambot.service.SendBotMessageService;
 import com.github.vipekon.vipekontelegrambot.service.StatisticsService;
-import com.github.vipekon.vipekontelegrambot.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.stream.Collectors;
+
+import static com.github.vipekon.vipekontelegrambot.command.CommandUtils.getChatId;
 
 /**
  * Statistics {@link Command}.
@@ -40,7 +41,7 @@ public class StatCommand implements Command {
                 .map(it -> String.format("%s (id = %s) - %s подписчиков", it.getTitle(), it.getId(), it.getActiveUserCount()))
                 .collect(Collectors.joining("\n"));
 
-        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), String.format(STAT_MESSAGE,
+        sendBotMessageService.sendMessage(getChatId(update), String.format(STAT_MESSAGE,
                 statisticDTO.getActiveUserCount(),
                 statisticDTO.getInactiveUserCount(),
                 statisticDTO.getAverageGroupCountByUser(),

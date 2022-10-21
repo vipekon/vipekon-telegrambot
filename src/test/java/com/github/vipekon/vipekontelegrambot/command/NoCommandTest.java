@@ -1,11 +1,9 @@
 package com.github.vipekon.vipekontelegrambot.command;
 
-import com.github.vipekon.vipekontelegrambot.javarushclient.command.Command;
-import com.github.vipekon.vipekontelegrambot.javarushclient.command.NoCommand;
 import org.junit.jupiter.api.DisplayName;
 
-import static com.github.vipekon.vipekontelegrambot.javarushclient.command.CommandName.NO;
-import static com.github.vipekon.vipekontelegrambot.javarushclient.command.NoCommand.NO_MESSAGE;
+import static com.github.vipekon.vipekontelegrambot.command.CommandName.NO;
+import static com.github.vipekon.vipekontelegrambot.command.NoCommand.NO_MESSAGE;
 
 
 @DisplayName("Unit-level testing for NoCommand")

@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * {@link Service} for handling {@link TelegramUser} entity.
+ */
+
 public interface TelegramUserService {
 
     /**
@@ -13,7 +17,7 @@ public interface TelegramUserService {
      *
      * @param  telegramUser provided telegram user.
      */
-    void save (TelegramUser telegramUser);
+    void save(TelegramUser telegramUser);
 
     /**
      * Find all active {@link TelegramUser}.

@@ -1,4 +1,4 @@
-package  com.github.vipekon.vipekontelegrambot.service;
+package com.github.vipekon.vipekontelegrambot.service;
 
 import com.github.vipekon.vipekontelegrambot.bot.VipekonTelegramBot;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,12 +24,12 @@ public class SendBotMessageServiceTest {
     @Test
     public void shouldProperlySendMessage() throws TelegramApiException {
         //given
-        String chatId = "test_chat_id";
+        Long chatId = 123L;
         String message = "test_message";
 
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText();
-        sendMessage.setChatId();
+        sendMessage.setText(message);
+        sendMessage.setChatId(chatId.toString());
         sendMessage.enableHtml(true);
 
         //when

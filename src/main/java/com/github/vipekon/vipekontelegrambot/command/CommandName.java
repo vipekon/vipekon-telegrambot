@@ -1,5 +1,9 @@
 package com.github.vipekon.vipekontelegrambot.command;
 
+/**
+ * Enumeration for {@link Command}'s.
+ */
+
 public enum CommandName {
 
     START ("/start"),
