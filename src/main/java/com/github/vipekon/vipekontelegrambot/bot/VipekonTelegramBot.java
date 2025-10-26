@@ -17,9 +17,7 @@ import java.util.List;
 
 import static com.github.vipekon.vipekontelegrambot.command.CommandName.NO;
 
-/**
- * Telegram bot for Javarush Community from Javarush community.
- */
+
 @Component
 public class VipekonTelegramBot extends TelegramLongPollingBot {
 
